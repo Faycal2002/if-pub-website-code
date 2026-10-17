@@ -157,3 +157,16 @@
     }
   }
 }
+
+// Lien vers l'itinéraire, sous l'adresse
+.footer__map-link {
+  display: inline-block;
+  margin-top: 8px;
+  color: #fff;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  &:hover {
+    opacity: 0.8;
+  }
+}

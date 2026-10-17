@@ -15,7 +15,7 @@ a {
 }
 
 .section {
-  padding-block: 8rem;
+  padding-block: 5.5rem;
   @include Mobile {
     padding-block: 4rem;
   }
@@ -24,7 +24,7 @@ a {
 .sm-title {
   color: $redColor;
   font-family: $Roboto;
-  font-size: 20px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 700;
   letter-spacing: 1.3px;
@@ -44,11 +44,11 @@ a {
 .title {
   text-align: center;
   font-family: $Oswald;
-  font-size: 42px;
+  font-size: 34px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-  letter-spacing: 2.73px;
+  letter-spacing: 2px;
   text-transform: uppercase;
   margin-top: 10px;
   @include Mobile {

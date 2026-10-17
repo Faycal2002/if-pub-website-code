@@ -57,7 +57,7 @@
         h4 {
           color: #fff;
           font-family: $Roboto;
-          font-size: 42px;
+          font-size: 28px;
           font-weight: 700;
           letter-spacing: 2.5px;
           text-transform: uppercase;
@@ -76,7 +76,7 @@
       }
       &:first-of-type {
         background-image: url(../img/projects/projectOne.png);
-        height: 490px;
+        height: 318px;
         @include Mobile {
           height: 250px !important;
         }
@@ -86,8 +86,8 @@
       }
       &:last-of-type {
         background-image: url(../img/projects/projectSix.png);
-        height: 730px;
-        margin-top: -255px;
+        height: 475px;
+        margin-top: -166px;
         @include Mobile {
           height: 420px !important;
         }
@@ -101,7 +101,7 @@
       }
       &:nth-of-type(2) {
         background-image: url(../img/projects/projectTwo.png);
-        height: 720px;
+        height: 468px;
         @include Mobile {
           height: 420px !important;
         }
@@ -111,8 +111,8 @@
       }
       &:nth-of-type(3) {
         background-image: url(../img/projects/projectThree.png);
-        height: 700px;
-        margin-top: -230px;
+        height: 455px;
+        margin-top: -150px;
         @include Mobile {
           height: 360px !important;
         }
@@ -126,7 +126,7 @@
       }
       &:nth-of-type(4) {
         background-image: url(../img/projects/projectFour.png);
-        height: 215px;
+        height: 140px;
         @include Mobile {
           height: 150px !important;
         }
@@ -136,7 +136,7 @@
       }
       &:nth-of-type(5) {
         background-image: url(../img/projects/projectFive.png);
-        height: 475px;
+        height: 309px;
         @include Mobile {
           height: 275px !important;
         }

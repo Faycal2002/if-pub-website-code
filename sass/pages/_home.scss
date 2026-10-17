@@ -36,7 +36,7 @@
       gap: initial;
     }
     &__logo {
-      width: 110px;
+      width: 72px;
       @include Mobile {
         height: 60px;
       }
@@ -44,19 +44,19 @@
         width: 75px;
       }
       @include Small {
-        width: 100px;
+        width: 72px;
       }
       @include Medium {
-        width: 100px;
+        width: 72px;
       }
       @include Large {
-        width: 80px;
+        width: 64px;
       }
     }
     &__links {
       display: flex;
       align-items: center;
-      gap: 40px;
+      gap: 32px;
       @media screen and (max-width: 992px) {
         position: fixed;
         top: 84px;
@@ -77,7 +77,7 @@
         top: 124px;
       }
       @include Medium {
-        top: 124px;
+        top: $navHeight;
         gap: 45px;
         padding-left: 40px;
       }
@@ -87,7 +87,7 @@
     }
     &__link {
       font-family: $Roboto;
-      font-size: 1.25rem; // 20px
+      font-size: 1rem; // 16px
       text-transform: uppercase;
       font-weight: 500;
       @media screen and (max-width: 992px) {
@@ -97,7 +97,7 @@
         font-size: 24px;
       }
       @include Large {
-        font-size: 18px;
+        font-size: 15px;
       }
       position: relative;
       &:hover a::after {
@@ -169,10 +169,10 @@
   &::before,
   &::after {
     position: absolute;
-    width: 585px;
-    height: 214px;
+    width: 460px;
+    height: auto;
     @include height {
-      width: 490px;
+      width: 400px;
       height: auto;
     }
     @include Extra-Small {
@@ -188,7 +188,7 @@
       height: auto;
     }
     @include Large {
-      width: 500px;
+      width: 400px;
       height: auto;
     }
   }
@@ -218,7 +218,7 @@
   &__title {
     text-transform: uppercase;
     font-family: $Poppins;
-    font-size: 5rem;
+    font-size: 3.6rem;
     font-weight: 700;
     letter-spacing: 5.2px;
     position: absolute;
@@ -239,15 +239,15 @@
       font-size: 63px;
     }
     @include Medium {
-      font-size: 80px;
+      font-size: 56px;
       width: inherit;
       margin-left: 147px;
     }
     @include Large {
-      font-size: 3.9rem;
+      font-size: 3rem;
     }
     @include X-Large {
-      font-size: 4.4rem;
+      font-size: 3.3rem;
     }
     &::before {
       content: "";

@@ -1,0 +1,910 @@
+.devis {
+  background-color: $sectionColor;
+  [hidden] {
+    display: none !important;
+  }
+  // Page devis.html : laisse la place à l'en-tête fixe
+  &--page {
+    padding-top: calc(#{$navHeight} + 60px);
+    min-height: 100vh;
+    @include Extra-Small {
+      padding-top: 140px;
+    }
+  }
+  &__intro {
+    max-width: 640px;
+    margin: 20px auto 0;
+    text-align: center;
+    font-family: $OpenSans;
+    font-size: 18px;
+    line-height: 1.5;
+  }
+  &__form {
+    max-width: 960px;
+    margin: 60px auto 0;
+  }
+  // Carte blanche : chaque devis et la partie finale
+  &__card {
+    padding: 50px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 5px 35px 0px rgba(166, 209, 237, 0.25);
+    @include Extra-Small {
+      padding: 25px 18px;
+    }
+  }
+
+  // Plusieurs devis à la suite
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+  &__bloc {
+    counter-reset: etape;
+    scroll-margin-top: calc(#{$navHeight} + 20px);
+    &.is-reduit {
+      padding-block: 25px;
+      .devis__bloc-head {
+        margin-bottom: 0;
+      }
+      .devis__bloc-body {
+        display: none;
+      }
+    }
+  }
+  &__bloc-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 20px;
+    margin-bottom: 35px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e3e9ef;
+  }
+  .is-reduit &__bloc-head {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  // Un seul devis : pas d'en-tête "Devis 1"
+  &__list:not(.is-multiple) &__bloc-head {
+    display: none;
+  }
+  &__bloc-title {
+    margin: 0;
+    color: $blueColor;
+    font-family: $Oswald;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    span {
+      color: $blueColor;
+    }
+  }
+  &__bloc-resume {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    font-family: $OpenSans;
+    color: #6b7c8a;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .devis__bloc:not(.is-reduit) &__bloc-resume {
+    visibility: hidden;
+  }
+  &__bloc-actions {
+    display: flex;
+    gap: 8px;
+  }
+  &__bloc-btn {
+    padding: 8px 18px;
+    border: 1px solid $blueColor;
+    border-radius: 25px;
+    background-color: #fff;
+    color: $blueColor;
+    font-family: $Poppins;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 150ms ease-in-out;
+    &:hover {
+      background-color: $blueColor;
+      color: #fff;
+    }
+    &--danger {
+      border-color: $redColor;
+      color: $redColor;
+      &:hover {
+        background-color: $redColor;
+        color: #fff;
+      }
+    }
+  }
+
+  // Bouton "Ajouter un autre devis"
+  &__add-zone {
+    margin: 25px 0;
+    text-align: center;
+    .devis__hint {
+      margin-top: 12px;
+    }
+  }
+  &__add {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 22px;
+    border: 2px dashed $blueColor;
+    border-radius: 10px;
+    background-color: rgba($blueColor, 0.04);
+    color: $blueColor;
+    font-family: $Poppins;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 150ms ease-in-out;
+    span {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: $blueColor;
+      color: #fff;
+      font-size: 22px;
+      line-height: 1;
+    }
+    &:hover {
+      background-color: rgba($blueColor, 0.1);
+    }
+  }
+  &__final .devis__step {
+    margin-bottom: 30px;
+  }
+  &__legend--final {
+    color: $bodyColor;
+  }
+  &__step {
+    border: none;
+    padding: 0;
+    margin: 0 0 45px;
+    min-width: 0;
+    counter-increment: etape;
+  }
+  &__legend {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0;
+    margin-bottom: 20px;
+    font-family: $Oswald;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    @include Mobile {
+      font-size: 20px;
+    }
+    // Numéro d'étape automatique (l'étape aperçu cachée n'est pas comptée)
+    span {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: $blueColor;
+      &::before {
+        content: counter(etape);
+        color: #fff;
+        font-size: 18px;
+      }
+    }
+  }
+
+  // Étape 1 : catégories
+  &__cats {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    @include Medium {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @include Small {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @include Extra-Small {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  &__cat,
+  &__product {
+    position: relative;
+    input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+    input:focus-visible + span {
+      outline: 3px solid rgba($blueColor, 0.4);
+      outline-offset: 2px;
+    }
+  }
+  &__cat span {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    height: 100%;
+    padding: 20px 10px;
+    border: 2px solid #e3e9ef;
+    border-radius: 10px;
+    text-align: center;
+    font-family: $Poppins;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 150ms ease-in-out;
+    img {
+      height: 50px;
+      width: auto;
+    }
+    &:hover {
+      border-color: $blueColor;
+    }
+  }
+  &__cat input:checked + span {
+    border-color: $blueColor;
+    background-color: rgba($blueColor, 0.08);
+  }
+
+  // Étape 2 : produits en photos
+  &__hint {
+    margin: 0;
+    font-family: $OpenSans;
+    color: #6b7c8a;
+  }
+  &__group {
+    margin-bottom: 25px;
+  }
+  &__group-title {
+    margin: 0 0 10px;
+    font-family: $Poppins;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: $redColor;
+  }
+  &__products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 15px;
+    @include Mobile {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+  }
+  &__product-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 2px solid #e3e9ef;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #fff;
+    cursor: pointer;
+    transition: 150ms ease-in-out;
+    &:hover {
+      border-color: $blueColor;
+    }
+    // Coche bleue quand le produit est choisi
+    &::after {
+      content: "✓";
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background-color: $blueColor;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      opacity: 0;
+      transform: scale(0.6);
+      transition: 150ms ease-in-out;
+    }
+  }
+  &__product-photo,
+  &__product-icon {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+  }
+  &__product-photo {
+    object-fit: cover;
+    object-position: right center;
+  }
+  &__product-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $sectionColor;
+    img {
+      height: 48px;
+    }
+  }
+  &__product-name {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 12px;
+    text-align: center;
+    font-family: $Poppins;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+  &__product input:checked + &__product-card {
+    border-color: $blueColor;
+    box-shadow: 0 0 0 1px $blueColor;
+    &::after {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  // Étape projet : une ligne par produit choisi
+  &__lines {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 15px 0 25px;
+  }
+  &__line {
+    padding: 20px;
+    border: 1px solid #e3e9ef;
+    border-radius: 10px;
+    background-color: $sectionColor;
+    @include Extra-Small {
+      padding: 15px;
+    }
+  }
+  &__line-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e3e9ef;
+    img {
+      flex-shrink: 0;
+      width: 64px;
+      height: 44px;
+      border-radius: 6px;
+      background-color: #fff;
+      object-fit: cover;
+      object-position: right center;
+      &.is-icon {
+        object-fit: contain;
+        padding: 6px;
+      }
+    }
+    strong {
+      display: block;
+      font-family: $Poppins;
+      font-size: 15px;
+      font-weight: 600;
+    }
+    small {
+      display: block;
+      font-family: $OpenSans;
+      font-size: 13px;
+      color: #6b7c8a;
+    }
+  }
+
+  // Étapes projet et coordonnées : champs
+  &__fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    @include Extra-Small {
+      grid-template-columns: 1fr;
+    }
+  }
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-family: $Poppins;
+    font-size: 15px;
+    font-weight: 500;
+    &--full {
+      grid-column: 1 / -1;
+    }
+    small {
+      font-family: $OpenSans;
+      font-weight: 400;
+      color: #6b7c8a;
+    }
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 13px 15px;
+      border: 1px solid #cfd9e3;
+      border-radius: 10px;
+      background-color: #fff;
+      font-family: $OpenSans;
+      font-size: 16px;
+      font-weight: 400;
+      &:focus {
+        outline: none;
+        border-color: $blueColor;
+        box-shadow: 0 0 0 3px rgba($blueColor, 0.15);
+      }
+    }
+    textarea {
+      resize: vertical;
+    }
+  }
+  // Remarque sur le délai, mise en avant si urgent
+  &__delai-note {
+    display: block;
+    padding: 12px 15px;
+    border-left: 3px solid #cfd9e3;
+    border-radius: 0 8px 8px 0;
+    background-color: $sectionColor;
+    line-height: 1.5;
+    transition: 150ms ease-in-out;
+    strong {
+      color: $bodyColor;
+    }
+    &.is-urgent {
+      border-left-color: $colorIconThree;
+      background-color: rgba($colorIconThree, 0.1);
+      color: $bodyColor;
+    }
+  }
+  // Zone de dépôt des fichiers
+  &__legend small {
+    font-family: $OpenSans;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+    color: #6b7c8a;
+  }
+  &__upload {
+    margin-bottom: 25px;
+  }
+  &__upload-title {
+    margin: 0 0 10px;
+    font-family: $Poppins;
+    font-size: 15px;
+    font-weight: 500;
+    small {
+      font-family: $OpenSans;
+      font-weight: 400;
+      color: #6b7c8a;
+    }
+  }
+  &__files-msg {
+    margin: 10px 0 0;
+    font-family: $OpenSans;
+    font-size: 14px;
+    font-weight: 600;
+    color: $redColor;
+    &:empty {
+      display: none;
+    }
+  }
+  &__drop {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 30px 20px;
+    border: 2px dashed #cfd9e3;
+    border-radius: 10px;
+    background-color: $sectionColor;
+    text-align: center;
+    cursor: pointer;
+    transition: 150ms ease-in-out;
+    input {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+    svg path {
+      stroke: $blueColor;
+    }
+    strong {
+      font-family: $Poppins;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    small {
+      font-family: $OpenSans;
+      font-size: 14px;
+      color: #6b7c8a;
+    }
+    &:hover,
+    &.is-over {
+      border-color: $blueColor;
+      background-color: rgba($blueColor, 0.06);
+    }
+    &:focus-within {
+      outline: 3px solid rgba($blueColor, 0.4);
+      outline-offset: 2px;
+    }
+  }
+  &__files {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 12px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  &__file {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border: 1px solid #e3e9ef;
+    border-radius: 8px;
+    background-color: #fff;
+    font-family: $OpenSans;
+    font-size: 15px;
+    small {
+      color: #6b7c8a;
+      white-space: nowrap;
+    }
+    button {
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+      border: none;
+      border-radius: 50%;
+      background-color: rgba($redColor, 0.1);
+      color: $redColor;
+      font-size: 18px;
+      line-height: 1;
+      cursor: pointer;
+      &:hover {
+        background-color: $redColor;
+        color: #fff;
+      }
+    }
+  }
+  &__file-name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  &__honey {
+    position: absolute;
+    left: -9999px;
+  }
+  &__submit {
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    &:disabled {
+      opacity: 0.6;
+      cursor: wait;
+    }
+  }
+  &__status {
+    min-height: 1em;
+    margin: 20px 0 0;
+    text-align: center;
+    font-family: $OpenSans;
+    font-size: 16px;
+    font-weight: 600;
+    &.is-success {
+      color: $colorIconTwo;
+    }
+    &.is-error {
+      color: $redColor;
+    }
+  }
+}
+
+/*----- Aperçu en direct des enseignes -----*/
+// Vis dessinées aux 4 coins des plaques
+$vis: radial-gradient(circle, #8f8f8f 0 3px, #e4e4e4 4px 5px, transparent 6px);
+$vis-coins: $vis top 6px left 6px / 14px 14px no-repeat, $vis top 6px right 6px / 14px 14px no-repeat,
+  $vis bottom 6px left 6px / 14px 14px no-repeat, $vis bottom 6px right 6px / 14px 14px no-repeat;
+
+.apercu {
+  &__tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
+  }
+  &__tab {
+    padding: 8px 16px;
+    border: 1px solid #cfd9e3;
+    border-radius: 25px;
+    background-color: #fff;
+    font-family: $OpenSans;
+    font-size: 14px;
+    cursor: pointer;
+    &.is-active {
+      background-color: $blueColor;
+      border-color: $blueColor;
+      color: #fff;
+    }
+  }
+  &__scene {
+    --c: #e6292e; // couleur du texte
+    --f: #112e41; // couleur du fond
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 280px;
+    padding: 40px 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ece8e2, #d3cec6);
+    transition: background 300ms;
+  }
+  &__sign {
+    position: relative;
+    max-width: 100%;
+    padding: 30px 46px;
+    transition: 300ms ease-in-out;
+  }
+  // Police, taille et majuscules sont réglées par js/devis.js
+  &__text,
+  &__text2 {
+    display: block;
+    color: var(--c);
+    letter-spacing: 1.5px;
+    line-height: 1.15;
+    text-align: center;
+    overflow-wrap: anywhere;
+    transition: 300ms ease-in-out;
+  }
+  &__text2 {
+    margin-top: 8px;
+    letter-spacing: 1px;
+  }
+
+  // Plaque en plexiglas : verre transparent avec entretoises
+  &__scene[data-style="plexiglas"] {
+    .apercu__sign {
+      background: $vis-coins, rgba(255, 255, 255, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 8px 12px 20px rgba(0, 0, 0, 0.18), inset 0 0 0 6px rgba(255, 255, 255, 0.25);
+    }
+    .apercu__text,
+    .apercu__text2 {
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+  }
+  // Plaque métallique : aluminium brossé, lettres gravées
+  &__scene[data-style="metal"] {
+    .apercu__sign {
+      background: $vis-coins, linear-gradient(135deg, #f4f4f4 0%, #bdbdbd 45%, #efefef 55%, #a8a8a8 100%);
+      box-shadow: 6px 10px 18px rgba(0, 0, 0, 0.25);
+    }
+    .apercu__text,
+    .apercu__text2 {
+      text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.7), -1px -1px 0 rgba(0, 0, 0, 0.25);
+    }
+  }
+  // Enseigne lumineuse : de nuit, 3 types d'éclairage
+  &__scene[data-style="lumineuse"] {
+    background: linear-gradient(180deg, #27303b, #151a20);
+    .apercu__sign {
+      background-color: var(--f);
+      border: 5px solid #2b2f36;
+      box-shadow: 0 0 40px -5px var(--c), 0 15px 30px rgba(0, 0, 0, 0.5);
+    }
+    .apercu__text,
+    .apercu__text2 {
+      text-shadow: 0 0 8px var(--c), 0 0 22px var(--c);
+    }
+    // Caisson lumineux : toute la face est éclairée
+    &[data-eclairage="Caisson lumineux"] {
+      .apercu__sign {
+        background-image: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.08) 75%);
+        box-shadow: 0 0 45px rgba(255, 255, 255, 0.35), 0 15px 30px rgba(0, 0, 0, 0.5);
+      }
+      .apercu__text,
+      .apercu__text2 {
+        text-shadow: none;
+      }
+    }
+    // Rétro-éclairage : halo blanc derrière les lettres
+    &[data-eclairage="Rétro-éclairage"] {
+      .apercu__sign {
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+      }
+      .apercu__text,
+      .apercu__text2 {
+        text-shadow: 0 0 14px rgba(255, 255, 255, 0.95), 0 0 32px rgba(255, 255, 255, 0.7);
+      }
+    }
+  }
+  // Enseigne non lumineuse : panneau peint
+  &__scene[data-style="nonlumineuse"] {
+    .apercu__sign {
+      background-color: var(--f);
+      box-shadow: 6px 10px 18px rgba(0, 0, 0, 0.25);
+    }
+  }
+  // Néon : mur sombre et tube lumineux
+  &__scene[data-style="neon"] {
+    background: repeating-linear-gradient(0deg, transparent 0 38px, rgba(255, 255, 255, 0.04) 38px 40px),
+      repeating-linear-gradient(90deg, transparent 0 78px, rgba(255, 255, 255, 0.03) 78px 80px), #1b1820;
+    .apercu__sign {
+      padding: 10px;
+    }
+    .apercu__text,
+    .apercu__text2 {
+      color: #fff;
+      text-shadow: 0 0 4px #fff, 0 0 10px var(--c), 0 0 20px var(--c), 0 0 40px var(--c), 0 0 70px var(--c);
+    }
+  }
+  // Enseigne drapeau : panneau fixé au mur par une potence
+  &__scene[data-style="drapeau"] {
+    .apercu__sign {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 190px;
+      height: 190px;
+      margin-left: 70px;
+      padding: 25px;
+      background-color: var(--f);
+      box-shadow: 6px 10px 18px rgba(0, 0, 0, 0.25), inset 0 0 0 6px rgba(255, 255, 255, 0.25);
+      &::before {
+        content: "";
+        position: absolute;
+        right: 100%;
+        top: 50%;
+        width: 80px;
+        height: 8px;
+        margin-top: -4px;
+        border-radius: 4px;
+        background-color: #2b2f36;
+      }
+    }
+  }
+
+  // Formes du panneau (après les styles pour les remplacer)
+  &__scene[data-forme="Rectangle"] .apercu__sign {
+    border-radius: 4px;
+  }
+  &__scene[data-forme="Arrondie"] .apercu__sign {
+    border-radius: 24px;
+  }
+  &__scene[data-forme="Ovale"] .apercu__sign {
+    border-radius: 50%;
+    padding-inline: 60px;
+  }
+  &__scene[data-style="drapeau"][data-forme="Ovale"] .apercu__sign {
+    padding-inline: 25px;
+  }
+
+  // Réglages
+  &__controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: 20px;
+    margin-top: 20px;
+    @include Extra-Small {
+      grid-template-columns: 1fr;
+    }
+  }
+  &__choix {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  &__chip,
+  &__color {
+    position: relative;
+    input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+    input:focus-visible + span {
+      outline: 3px solid rgba($blueColor, 0.4);
+      outline-offset: 2px;
+    }
+  }
+  &__chip {
+    span {
+      display: inline-block;
+      padding: 8px 16px;
+      border: 1px solid #cfd9e3;
+      border-radius: 25px;
+      background-color: #fff;
+      font-family: $OpenSans;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 150ms ease-in-out;
+      &:hover {
+        border-color: $blueColor;
+      }
+    }
+    input:checked + span {
+      background-color: $blueColor;
+      border-color: $blueColor;
+      color: #fff;
+    }
+  }
+  &__colors {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-block: 4px;
+  }
+  &__color {
+    span {
+      display: block;
+      width: 34px;
+      height: 34px;
+      border: 2px solid #cfd9e3;
+      border-radius: 50%;
+      background-color: var(--sw);
+      box-shadow: inset 0 0 0 3px #fff;
+      cursor: pointer;
+    }
+    input:checked + span {
+      border-color: $blueColor;
+      box-shadow: inset 0 0 0 3px #fff, 0 0 0 2px $blueColor;
+    }
+  }
+  &__toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    width: fit-content;
+    font-family: $Poppins;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    input {
+      width: 18px;
+      height: 18px;
+      margin: 0;
+      accent-color: $blueColor;
+    }
+  }
+  &__note {
+    display: block;
+    margin-top: 15px;
+    font-family: $OpenSans;
+    color: #6b7c8a;
+  }
+}

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/normalize.css" />
+  <link rel="stylesheet" href="css/style.min.css" />
+  <!-- Polices proposées dans l'aperçu des enseignes -->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&family=Pacifico&family=Playfair+Display:wght@700&family=Roboto+Slab:wght@700&display=swap" />
+  <title>Demande de devis | IF pub</title>
+</head>
+
+<body>
+  <!-- Start Navigation Bar -->
+  <header class="header">
+    <div class="container">
+      <nav class="navbar">
+        <a href="index.html">
+          <img class="navbar__logo" src="svg/if_pub-logo.svg" alt="navbar-logo" />
+        </a>
+        <ul class="navbar__links" id="nav-menu">
+          <li class="navbar__link">
+            <a href="index.html#services" class="navbar__anchor">services</a>
+          </li>
+          <li class="navbar__link">
+            <a href="index.html#about" class="navbar__anchor">nous somme</a>
+          </li>
+          <li class="navbar__link">
+            <a href="index.html#products" class="navbar__anchor">produits</a>
+          </li>
+          <li class="navbar__link">
+            <a href="index.html#projects" class="navbar__anchor">projets</a>
+          </li>
+          <li class="navbar__link">
+            <a href="devis.html" class="navbar__anchor active-link">devis</a>
+          </li>
+          <li class="navbar__link">
+            <a href="index.html#contact" class="navbar__anchor">contact</a>
+          </li>
+        </ul>
+
+        <!-- burger button for mobile only -->
+        <a class="navbar__btn" id="nav-toggle">
+          <img src="svg/home/burger_menu.svg" class="navbar__btn" />
+        </a>
+      </nav>
+    </div>
+  </header>
+  <!-- Start Navigation Bar -->
+
+  <!-- Start Devis -->
+  <main class="section devis devis--page" id="devis">
+    <div class="container">
+      <p class="sm-title">Devis gratuit</p>
+      <h1 class="title devis__title">Demandez votre devis en ligne</h1>
+      <p class="devis__intro">
+        Choisissez ce dont vous avez besoin, décrivez votre projet et laissez
+        vos coordonnées : nous vous envoyons un devis personnalisé.
+      </p>
+      <form class="devis__form" id="devis-form" novalidate>
+        <!-- Les blocs devis sont ajoutés ici depuis le modèle ci-dessous -->
+        <div class="devis__list" id="devis-list"></div>
+
+        <!-- Tout en bas : ajouter un devis, coordonnées et envoi (une seule fois) -->
+        <div class="devis__add-zone">
+          <button type="button" class="devis__add" id="devis-add">
+            <span>+</span> Ajouter un autre devis
+          </button>
+          <p class="devis__hint">
+            Vous voulez un autre produit ? Ajoutez un devis : tous vos devis
+            seront envoyés ensemble.
+          </p>
+        </div>
+
+        <div class="devis__card devis__final">
+          <fieldset class="devis__step">
+            <legend class="devis__legend devis__legend--final">Vos coordonnées</legend>
+            <div class="devis__fields">
+              <label class="devis__field">
+                <span>Nom et prénom *</span>
+                <input type="text" name="nom" required autocomplete="name" />
+              </label>
+              <label class="devis__field">
+                <span>Téléphone *</span>
+                <input type="tel" name="telephone" required autocomplete="tel" placeholder="05 55 00 00 00" />
+              </label>
+              <label class="devis__field">
+                <span>Email *</span>
+                <input type="email" name="email" required autocomplete="email" />
+              </label>
+              <label class="devis__field">
+                <span>Ville / wilaya</span>
+                <input type="text" name="ville" autocomplete="address-level2" />
+              </label>
+              <label class="devis__field devis__field--full">
+                <span>Entreprise <small>(facultatif)</small></span>
+                <input type="text" name="entreprise" autocomplete="organization" />
+              </label>
+            </div>
+            <!-- anti-spam : champ invisible que seuls les robots remplissent -->
+            <input type="text" name="_honey" class="devis__honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          </fieldset>
+          <button type="submit" class="products__btn devis__submit" id="devis-submit">
+            Envoyer ma demande de devis
+          </button>
+          <p class="devis__status" id="devis-status" role="status"></p>
+        </div>
+      </form>
+
+      <!-- Modèle d'un bloc devis (copié par js/devis.js pour chaque devis) -->
+      <template id="devis-template">
+        <section class="devis__card devis__bloc">
+          <div class="devis__bloc-head">
+            <h2 class="devis__bloc-title">Devis <span data-role="num"></span></h2>
+            <p class="devis__bloc-resume" data-role="resume"></p>
+            <div class="devis__bloc-actions">
+              <button type="button" class="devis__bloc-btn" data-role="toggle">Réduire</button>
+              <button type="button" class="devis__bloc-btn devis__bloc-btn--danger" data-role="remove">Supprimer</button>
+            </div>
+          </div>
+          <div class="devis__bloc-body">
+            <fieldset class="devis__step">
+              <legend class="devis__legend"><span></span>Que souhaitez-vous ?</legend>
+              <div class="devis__cats" data-role="cats"></div>
+            </fieldset>
+            <fieldset class="devis__step">
+              <legend class="devis__legend"><span></span>Choisissez votre produit</legend>
+              <p class="devis__hint" data-role="hint">
+                Sélectionnez d'abord une catégorie ci-dessus.
+              </p>
+              <div data-role="items"></div>
+            </fieldset>
+            <fieldset class="devis__step" data-role="apercu-step" hidden>
+              <legend class="devis__legend"><span></span>Aperçu de votre enseigne</legend>
+              <div class="apercu">
+                <div class="apercu__tabs" data-role="tabs"></div>
+                <div class="apercu__scene" data-role="scene">
+                  <div class="apercu__sign">
+                    <span class="apercu__text" data-role="text" dir="auto">Votre texte</span>
+                    <span class="apercu__text2" data-role="text2" dir="auto" hidden></span>
+                  </div>
+                </div>
+                <div class="apercu__controls">
+                  <label class="devis__field">
+                    <span>Texte principal</span>
+                    <input type="text" data-role="input" dir="auto" maxlength="40"
+                      placeholder="ex : Boulangerie El Amel" />
+                  </label>
+                  <label class="devis__field">
+                    <span>2e ligne <small>(facultatif)</small></span>
+                    <input type="text" data-role="input2" dir="auto" maxlength="50"
+                      placeholder="ex : Tél 0555 00 00 00" />
+                  </label>
+                  <div class="devis__field devis__field--full">
+                    <span>Police</span>
+                    <div class="apercu__choix" data-role="polices"></div>
+                  </div>
+                  <div class="devis__field">
+                    <span>Couleur du texte</span>
+                    <div class="apercu__colors" data-role="couleurs"></div>
+                  </div>
+                  <div class="devis__field" data-option="fond">
+                    <span>Couleur du fond</span>
+                    <div class="apercu__colors" data-role="fonds"></div>
+                  </div>
+                  <div class="devis__field" data-option="forme">
+                    <span>Forme</span>
+                    <div class="apercu__choix" data-role="formes"></div>
+                  </div>
+                  <div class="devis__field" data-option="eclairage">
+                    <span>Éclairage</span>
+                    <div class="apercu__choix" data-role="eclairages"></div>
+                  </div>
+                  <label class="apercu__toggle devis__field--full">
+                    <input type="checkbox" data-role="maj" />
+                    <span>Tout en majuscules</span>
+                  </label>
+                </div>
+                <small class="apercu__note">Aperçu indicatif : la police, les couleurs et les
+                  matières définitives sont choisies avec vous.</small>
+              </div>
+            </fieldset>
+            <fieldset class="devis__step">
+              <legend class="devis__legend"><span></span>Détails du produit</legend>
+              <p class="devis__hint" data-role="lines-hint">Choisissez d'abord votre produit.</p>
+              <p class="devis__hint" data-role="lines-intro" hidden>
+                Répondez à ces quelques questions pour un devis précis.
+              </p>
+              <div class="devis__lines" data-role="lines"></div>
+              <div class="devis__upload" data-role="files-zone" hidden>
+                <p class="devis__upload-title">Vos fichiers <small>(facultatif)</small></p>
+                <label class="devis__drop" data-role="drop">
+                  <input type="file" data-role="fichiers" multiple
+                    accept=".jpg,.jpeg,.png,.gif,.webp,.heic,.pdf,.ai,.eps,.psd,.cdr,.svg,.doc,.docx,.txt" />
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M12 16V4M12 4L7 9M12 4L17 9M4 15V18C4 19.1 4.9 20 6 20H18C19.1 20 20 19.1 20 18V15"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  <strong>Glissez vos fichiers ici ou cliquez pour les choisir</strong>
+                  <small>Logo, maquette, photo de votre façade… Formats acceptés : JPG, PNG, HEIC,
+                    PDF, AI, EPS, PSD, CDR, SVG, Word. 10 Mo maximum au total pour toute la demande.</small>
+                </label>
+                <ul class="devis__files" data-role="files"></ul>
+                <p class="devis__files-msg" data-role="files-msg" role="alert"></p>
+              </div>
+              <div class="devis__fields">
+                <label class="devis__field devis__field--full">
+                  <span>Délai souhaité</span>
+                  <select data-role="delai">
+                    <option>Pas pressé</option>
+                    <option>Sous 2 à 3 semaines</option>
+                    <option>Urgent (moins d'une semaine)</option>
+                  </select>
+                  <small class="devis__delai-note" data-role="delai-note">
+                    <strong>À noter :</strong> nos tarifs sont établis sur la base d'un délai
+                    de fabrication standard. Une demande urgente implique une mise en
+                    production prioritaire et peut donner lieu à une majoration. Pour
+                    bénéficier du meilleur tarif, nous vous recommandons d'anticiper votre
+                    commande.
+                  </small>
+                </label>
+                <label class="devis__field devis__field--full">
+                  <span>Autres précisions <small>(facultatif)</small></span>
+                  <textarea data-role="description" rows="5"
+                    placeholder="Tout ce qui peut nous aider à préparer votre devis…"></textarea>
+                </label>
+              </div>
+            </fieldset>
+          </div>
+        </section>
+      </template>
+    </div>
+  </main>
+  <!-- End Devis -->
+
+  <!-- Start Footer -->
+  <footer class="section footer" id="footer">
+    <img src="svg/footer/waves.svg" class="footer__waves" alt="" />
+    <div class="container">
+      <div class="footer__flex">
+        <div class="footer__content">
+          <img src="svg/footer/logo-white.svg" alt="logo-img" />
+          <h5>
+            Duis aute irure dolor inasfa repre<br />
+            henderit involuptate velit esse cillum
+          </h5>
+          <h4>(+213) 5 55 32 02 65</h4>
+          <p>Contact@ifpubdz.com</p>
+        </div>
+        <div class="footer__flex-information">
+          <div class="footer__navigation">
+            <h3>Navigation</h3>
+            <ul class="footer__links">
+              <li class="footer__link"><a href="#">Home</a></li>
+              <li class="footer__link"><a href="#">About</a></li>
+              <li class="footer__link"><a href="#">Services</a></li>
+              <li class="footer__link"><a href="#">Projects</a></li>
+              <li class="footer__link"><a href="#">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer__navigation">
+            <h3>Services</h3>
+            <ul class="footer__links">
+              <li class="footer__link"><a href="index.html#services">Design</a></li>
+              <li class="footer__link"><a href="index.html#services">Impression</a></li>
+              <li class="footer__link"><a href="index.html#services">Supports publicitaires</a></li>
+              <li class="footer__link"><a href="index.html#services">Enseignes</a></li>
+              <li class="footer__link"><a href="index.html#services">Flocage</a></li>
+            </ul>
+          </div>
+
+          <div class="footer__navigation">
+            <h3>Adresse</h3>
+            <p>
+              Belgaid, près de la mosquée Machalah <br />
+              Oran 31023, Algérie <br />
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=35.7440586,-0.5478849"
+                target="_blank" rel="noopener" class="footer__map-link">Voir l'itinéraire →</a>
+            </p>
+            <div class="footer__icons">
+              <h3>Suivez nous</h3>
+              <ul class="social__links">
+                <li class="social__link">
+                  <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+                      <g clip-path="url(#clip0_90_708)">
+                        <mask id="mask0_90_708" style="mask-type: luminance" maskUnits="userSpaceOnUse" x="0" y="0"
+                          width="25" height="24">
+                          <path d="M0.877197 0H24.8772V24H0.877197V0Z" fill="white" />
+                        </mask>
+                        <g mask="url(#mask0_90_708)">
+                          <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M0.877197 12.067C0.877197 18.033 5.2102 22.994 10.8772 24V15.333H7.8772V12H10.8772V9.333C10.8772 6.333 12.8102 4.667 15.5442 4.667C16.4102 4.667 17.3442 4.8 18.2102 4.933V8H16.6772C15.2102 8 14.8772 8.733 14.8772 9.667V12H18.0772L17.5442 15.333H14.8772V24C20.5442 22.994 24.8772 18.034 24.8772 12.067C24.8772 5.43 19.4772 0 12.8772 0C6.2772 0 0.877197 5.43 0.877197 12.067Z"
+                            fill="white" />
+                        </g>
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_90_708">
+                          <rect width="24" height="24" fill="white" transform="translate(0.877197)" />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                  </a>
+                </li>
+                <li class="social__link">
+                  <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+                      <g clip-path="url(#clip0_90_715)">
+                        <path
+                          d="M12.8772 0C9.6207 0 9.2112 0.015 7.9317 0.072C6.6522 0.132 5.7807 0.333 5.0172 0.63C4.21634 0.931229 3.49093 1.40374 2.8917 2.0145C2.28131 2.61404 1.80886 3.33936 1.5072 4.14C1.2102 4.902 1.0077 5.775 0.949197 7.05C0.892197 8.3325 0.877197 8.7405 0.877197 12.0015C0.877197 15.2595 0.892197 15.6675 0.949197 16.947C1.0092 18.225 1.2102 19.0965 1.5072 19.86C1.8147 20.649 2.2242 21.318 2.8917 21.9855C3.5577 22.653 4.2267 23.064 5.0157 23.37C5.7807 23.667 6.6507 23.8695 7.9287 23.928C9.2097 23.985 9.6177 24 12.8772 24C16.1367 24 16.5432 23.985 17.8242 23.928C19.1007 23.868 19.9752 23.667 20.7387 23.37C21.539 23.0686 22.2639 22.5961 22.8627 21.9855C23.5302 21.318 23.9397 20.649 24.2472 19.86C24.5427 19.0965 24.7452 18.225 24.8052 16.947C24.8622 15.6675 24.8772 15.2595 24.8772 12C24.8772 8.7405 24.8622 8.3325 24.8052 7.0515C24.7452 5.775 24.5427 4.902 24.2472 4.14C23.9456 3.33934 23.4731 2.61401 22.8627 2.0145C22.2636 1.40351 21.5382 0.930968 20.7372 0.63C19.9722 0.333 19.0992 0.1305 17.8227 0.072C16.5417 0.015 16.1352 0 12.8742 0H12.8787H12.8772ZM11.8017 2.163H12.8787C16.0827 2.163 16.4622 2.1735 17.7267 2.232C18.8967 2.2845 19.5327 2.481 19.9557 2.6445C20.5152 2.862 20.9157 3.123 21.3357 3.543C21.7557 3.963 22.0152 4.362 22.2327 4.923C22.3977 5.3445 22.5927 5.9805 22.6452 7.1505C22.7037 8.415 22.7157 8.7945 22.7157 11.997C22.7157 15.1995 22.7037 15.5805 22.6452 16.845C22.5927 18.015 22.3962 18.6495 22.2327 19.0725C22.0403 19.5935 21.7332 20.0647 21.3342 20.451C20.9142 20.871 20.5152 21.1305 19.9542 21.348C19.5342 21.513 18.8982 21.708 17.7267 21.762C16.4622 21.819 16.0827 21.8325 12.8787 21.8325C9.6747 21.8325 9.2937 21.819 8.0292 21.762C6.8592 21.708 6.2247 21.513 5.8017 21.348C5.28045 21.1559 4.80889 20.8494 4.4217 20.451C4.02232 20.0641 3.71478 19.5925 3.5217 19.071C3.3582 18.6495 3.1617 18.0135 3.1092 16.8435C3.0522 15.579 3.0402 15.1995 3.0402 11.994C3.0402 8.79 3.0522 8.412 3.1092 7.1475C3.1632 5.9775 3.3582 5.3415 3.5232 4.9185C3.7407 4.359 4.0017 3.9585 4.4217 3.5385C4.8417 3.1185 5.2407 2.859 5.8017 2.6415C6.2247 2.4765 6.8592 2.2815 8.0292 2.2275C9.1362 2.1765 9.5652 2.1615 11.8017 2.16V2.163ZM19.2837 4.155C19.0946 4.155 18.9073 4.19225 18.7326 4.26461C18.5579 4.33698 18.3992 4.44305 18.2655 4.57677C18.1317 4.71048 18.0257 4.86923 17.9533 5.04394C17.8809 5.21864 17.8437 5.4059 17.8437 5.595C17.8437 5.7841 17.8809 5.97135 17.9533 6.14606C18.0257 6.32077 18.1317 6.47952 18.2655 6.61323C18.3992 6.74695 18.5579 6.85302 18.7326 6.92539C18.9073 6.99775 19.0946 7.035 19.2837 7.035C19.6656 7.035 20.0319 6.88329 20.3019 6.61323C20.572 6.34318 20.7237 5.97691 20.7237 5.595C20.7237 5.21309 20.572 4.84682 20.3019 4.57677C20.0319 4.30671 19.6656 4.155 19.2837 4.155ZM12.8787 5.838C12.0613 5.82525 11.2495 5.97523 10.4907 6.27921C9.73179 6.58319 9.04097 7.03511 8.45842 7.60863C7.87588 8.18216 7.41324 8.86585 7.09746 9.61989C6.78167 10.3739 6.61905 11.1833 6.61905 12.0007C6.61905 12.8182 6.78167 13.6276 7.09746 14.3816C7.41324 15.1356 7.87588 15.8193 8.45842 16.3929C9.04097 16.9664 9.73179 17.4183 10.4907 17.7223C11.2495 18.0263 12.0613 18.1763 12.8787 18.1635C14.4965 18.1383 16.0395 17.4779 17.1747 16.3249C18.3098 15.1719 18.946 13.6188 18.946 12.0007C18.946 10.3827 18.3098 8.82962 17.1747 7.67662C16.0395 6.52363 14.4965 5.86324 12.8787 5.838ZM12.8787 7.9995C13.9397 7.9995 14.9572 8.42098 15.7075 9.17122C16.4577 9.92146 16.8792 10.939 16.8792 12C16.8792 13.061 16.4577 14.0785 15.7075 14.8288C14.9572 15.579 13.9397 16.0005 12.8787 16.0005C11.8177 16.0005 10.8002 15.579 10.0499 14.8288C9.29968 14.0785 8.8782 13.061 8.8782 12C8.8782 10.939 9.29968 9.92146 10.0499 9.17122C10.8002 8.42098 11.8177 7.9995 12.8787 7.9995Z"
+                          fill="white" />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_90_715">
+                          <rect width="24" height="24" fill="white" transform="translate(0.877197)" />
+                        </clipPath>
+                      </defs>
+                    </svg></a>
+                </li>
+                <li class="social__link">
+                  <a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="27" height="26" viewBox="0 0 27 26" fill="none">
+                      <path
+                        d="M21.5148 5.31907C20.5216 4.31582 19.3386 3.52038 18.0348 2.97912C16.7309 2.43787 15.3324 2.16165 13.9206 2.16657C8.00564 2.16657 3.18481 6.9874 3.18481 12.9024C3.18481 14.7982 3.68314 16.6399 4.61481 18.2649L3.09814 23.8332L8.78564 22.3382C10.3565 23.1941 12.1223 23.6491 13.9206 23.6491C19.8356 23.6491 24.6565 18.8282 24.6565 12.9132C24.6565 10.0424 23.5406 7.3449 21.5148 5.31907ZM13.9206 21.8291C12.3173 21.8291 10.7465 21.3957 9.37064 20.5832L9.04564 20.3882L5.66564 21.2766L6.56481 17.9832L6.34814 17.6474C5.45737 16.225 4.98438 14.5807 4.98314 12.9024C4.98314 7.98407 8.99148 3.97574 13.9098 3.97574C16.2931 3.97574 18.5356 4.9074 20.2148 6.5974C21.0462 7.42503 21.7052 8.40945 22.1533 9.49361C22.6015 10.5778 22.83 11.7401 22.8256 12.9132C22.8473 17.8316 18.839 21.8291 13.9206 21.8291ZM18.8173 15.1557C18.5465 15.0257 17.2248 14.3757 16.9865 14.2782C16.7373 14.1916 16.564 14.1482 16.3798 14.4082C16.1956 14.6791 15.6865 15.2857 15.5348 15.4591C15.3831 15.6432 15.2206 15.6649 14.9498 15.5241C14.679 15.3941 13.8123 15.1016 12.794 14.1916C11.9923 13.4766 11.4615 12.5991 11.299 12.3282C11.1473 12.0574 11.2773 11.9166 11.4181 11.7757C11.5373 11.6566 11.689 11.4616 11.819 11.3099C11.949 11.1582 12.0031 11.0391 12.0898 10.8657C12.1765 10.6816 12.1331 10.5299 12.0681 10.3999C12.0031 10.2699 11.4615 8.94824 11.2448 8.40657C11.0281 7.88657 10.8006 7.95157 10.6381 7.94074H10.1181C9.93398 7.94074 9.65231 8.00574 9.40314 8.27657C9.16481 8.5474 8.47148 9.1974 8.47148 10.5191C8.47148 11.8407 9.43564 13.1191 9.56564 13.2924C9.69564 13.4766 11.4615 16.1849 14.1481 17.3441C14.7873 17.6257 15.2856 17.7882 15.6756 17.9074C16.3148 18.1132 16.8998 18.0807 17.3656 18.0157C17.8856 17.9399 18.9581 17.3657 19.1748 16.7374C19.4023 16.1091 19.4023 15.5782 19.3265 15.4591C19.2506 15.3399 19.0881 15.2857 18.8173 15.1557Z"
+                        fill="white" />
+                    </svg></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- End Footer -->
+  <!--=============== SCROLL UP ===============-->
+  <a href="#" class="scrollup" id="scroll-up">
+    <img src="svg/scroll_top.svg" alt="" />
+  </a>
+  <script src="https://unpkg.com/scrollreveal"></script>
+  <script src="js/main.js"></script>
+  <script src="js/devis.js"></script>
+</body>
+
+</html>

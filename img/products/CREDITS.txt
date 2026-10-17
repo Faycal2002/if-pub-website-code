@@ -1,0 +1,11 @@
+Photos ajoutées pour la page devis (licence Unsplash : usage commercial gratuit, mention non obligatoire)
+
+logo.jpg               https://unsplash.com/photos/pivAQkvM2v0
+flyer.jpg              https://unsplash.com/photos/DM87rb0rT_s
+panneau.jpg            https://unsplash.com/photos/Dnkr_lmdKi8
+evenement.jpg          https://unsplash.com/photos/250IobbU_Bc
+vitrine.jpg            https://unsplash.com/photos/TQBbthbWATE
+textile.jpg            https://unsplash.com/photos/tWOz2_EK5EQ
+maquette-enseigne.jpg  https://unsplash.com/photos/5gNthb9Tatc
+
+À remplacer de préférence par des photos de vraies réalisations IF pub.

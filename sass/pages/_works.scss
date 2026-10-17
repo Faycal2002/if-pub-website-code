@@ -59,9 +59,9 @@
     }
     .work {
       background-color: white;
-      width: 266px;
-      height: 266px;
-      padding: 35px 10px;
+      width: 220px;
+      height: 220px;
+      padding: 25px 10px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -74,7 +74,7 @@
       &__title {
         text-align: center;
         font-family: $Roboto;
-        font-size: 25px;
+        font-size: 19px;
         font-weight: 700;
         letter-spacing: 1.625px;
         text-transform: uppercase;
