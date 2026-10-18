@@ -7,8 +7,8 @@
   &--page {
     padding-top: calc(#{$navHeight} + 60px);
     min-height: 100vh;
-    @include Extra-Small {
-      padding-top: 140px;
+    @media (max-width: 992px) {
+      padding-top: 120px;
     }
   }
   &__intro {

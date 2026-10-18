@@ -12,40 +12,27 @@
 <body>
   <!-- Start Navigation Bar -->
   <header class="header">
-    <div class="container">
-      <nav class="navbar">
-        <a href="home">
-          <img class="navbar__logo" src="svg/if_pub-logo.svg" alt="navbar-logo" />
+    <div class="header__top">
+      <div class="container header__top-inner">
+        <a href="index.html" class="header__logo">
+          <img class="navbar__logo" src="svg/if_pub-logo.svg" alt="IF pub, agence de publicité" />
         </a>
-        <ul class="navbar__links" id="nav-menu">
-          <li class="navbar__link">
-            <a href="#services" class="navbar__anchor">services</a>
-          </li>
-          <li class="navbar__link">
-            <a href="#about" class="navbar__anchor">nous somme</a>
-          </li>
-          <li class="navbar__link">
-            <a href="#products" class="navbar__anchor">produits</a>
-          </li>
-          <li class="navbar__link">
-            <a href="#projects" class="navbar__anchor">projets</a>
-          </li>
-          <li class="navbar__link">
-            <a href="devis.html" class="navbar__anchor">devis</a>
-          </li>
-          <li class="navbar__link">
-            <a href="#contact" class="navbar__anchor">contact</a>
-          </li>
-        </ul>
-
-        <!-- burger button for mobile only -->
-        <a class="navbar__btn" id="nav-toggle">
-          <img src="svg/home/burger_menu.svg" class="navbar__btn" />
-        </a>
-      </nav>
+        <div class="header__actions">
+          <a href="index.html#footer" class="header__contact">Contact</a>
+          <a href="devis.html" class="header__devis">Devis gratuit</a>
+          <!-- bouton du menu, sur mobile seulement -->
+          <button type="button" class="navbar__btn" id="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+            <img src="svg/home/burger_menu.svg" alt="" />
+          </button>
+        </div>
+      </div>
     </div>
+    <!-- Barre des catégories : remplie par js/main.js à partir de js/catalogue.js -->
+    <nav class="catbar" id="catbar" aria-label="Catégories de produits">
+      <ul class="container catbar__list" id="nav-menu"></ul>
+    </nav>
   </header>
-  <!-- Start Navigation Bar -->
+  <!-- End Navigation Bar -->
 
   <!-- Start Home -->
   <main class="home" id="home">
@@ -490,11 +477,11 @@
           <div class="footer__navigation">
             <h3>Navigation</h3>
             <ul class="footer__links">
-              <li class="footer__link"><a href="#">Home</a></li>
-              <li class="footer__link"><a href="#">About</a></li>
-              <li class="footer__link"><a href="#">Services</a></li>
-              <li class="footer__link"><a href="#">Projects</a></li>
-              <li class="footer__link"><a href="#">Contact</a></li>
+              <li class="footer__link"><a href="#home">Accueil</a></li>
+              <li class="footer__link"><a href="#about">À propos</a></li>
+              <li class="footer__link"><a href="#services">Services</a></li>
+              <li class="footer__link"><a href="#projects">Projets</a></li>
+              <li class="footer__link"><a href="devis.html">Devis gratuit</a></li>
             </ul>
           </div>
           <div class="footer__navigation">
@@ -579,6 +566,7 @@
   </a>
 
   <script src="https://unpkg.com/scrollreveal"></script>
+  <script src="js/catalogue.js"></script>
   <script src="js/main.js"></script>
 </body>
 

@@ -1,0 +1,300 @@
+// En-tête sur deux lignes : logo + actions, puis la barre des catégories.
+// Hauteur totale sur ordinateur : $navHeight (72px + 48px).
+$headerTop: 72px;
+$catbarHeight: 48px;
+
+.header {
+  position: fixed;
+  z-index: 99999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0px 0px 10px 0px rgba(166, 209, 237, 0.8);
+  &__top-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: $headerTop;
+  }
+  &__logo {
+    display: flex;
+  }
+  .navbar__logo {
+    display: block;
+    width: auto;
+    height: 56px;
+  }
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    @include Mobile {
+      gap: 12px;
+    }
+  }
+  &__contact {
+    color: $bodyColor;
+    font-family: $Roboto;
+    font-size: 15px;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: 150ms ease-in-out;
+    &:hover {
+      color: $blueColor;
+    }
+    @include Extra-Small {
+      display: none;
+    }
+  }
+  &__devis {
+    padding: 10px 22px;
+    border-radius: 25px;
+    background-color: $redColor;
+    color: #fff;
+    font-family: $Roboto;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    transition: 150ms ease-in-out;
+    &:hover {
+      background-color: $blueColor;
+    }
+    @include Mobile {
+      padding: 8px 14px;
+      font-size: 13px;
+    }
+  }
+}
+
+// Bouton du menu (mobile et tablette)
+.navbar__btn {
+  display: none;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  img {
+    display: block;
+    width: 32px;
+  }
+  @media (max-width: 992px) {
+    display: block;
+  }
+}
+
+/*----- Barre des catégories -----*/
+.catbar {
+  position: relative;
+  background-color: $bodyColor;
+  .catbar__list {
+    display: flex;
+    align-items: stretch;
+    gap: 4px;
+    height: $catbarHeight;
+    margin-block: 0;
+    list-style: none;
+  }
+  &__item {
+    display: flex;
+  }
+  &__btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 100%;
+    padding: 0 16px;
+    border: none;
+    background: none;
+    color: #fff;
+    font-family: $Roboto;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 150ms ease-in-out;
+    // petite flèche vers le bas
+    &::after {
+      content: "";
+      border-top: 5px solid #fff;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      transition: transform 150ms ease-in-out;
+    }
+  }
+  .catbar__item:hover .catbar__btn,
+  .catbar__item.is-open .catbar__btn {
+    background-color: $blueColor;
+  }
+}
+
+// Grand menu déroulant : les produits de la catégorie en photo
+.mega {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: calc(100vh - #{$navHeight});
+  overflow-y: auto;
+  padding: 25px 0 30px;
+  background-color: #fff;
+  box-shadow: 0 15px 30px rgba(17, 46, 65, 0.15);
+  &__title {
+    margin: 0 0 15px;
+    color: $bodyColor;
+    font-family: $Oswald;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 15px;
+  }
+  &__item {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid #e3e9ef;
+    border-radius: 10px;
+    background-color: #fff;
+    transition: 150ms ease-in-out;
+    &:hover {
+      border-color: $blueColor;
+      box-shadow: 0 8px 20px rgba(29, 99, 173, 0.15);
+      transform: translateY(-2px);
+    }
+  }
+  &__img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    object-position: right center;
+    &--icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: $sectionColor;
+      img {
+        height: 44px;
+      }
+    }
+  }
+  &__name {
+    padding: 10px 12px 2px;
+    color: $bodyColor;
+    font-family: $Poppins;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  &__cta {
+    padding: 0 12px 12px;
+    color: $redColor;
+    font-family: $OpenSans;
+    font-size: 13px;
+    font-weight: 600;
+  }
+}
+
+// Ordinateur : ouverture au survol ou au clic
+@media (min-width: 993px) {
+  .catbar__item:hover .mega,
+  .catbar__item.is-open .mega {
+    display: block;
+  }
+}
+
+// Mobile et tablette : panneau latéral, catégories dépliables
+@media (max-width: 992px) {
+  .catbar {
+    position: fixed;
+    top: $headerTop;
+    right: -100%;
+    width: min(85%, 380px);
+    height: calc(100vh - #{$headerTop});
+    overflow-y: auto;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.25);
+    transition: right 0.4s;
+    &.is-open {
+      right: 0;
+    }
+    .catbar__list {
+      flex-direction: column;
+      gap: 0;
+      width: 100%;
+      height: auto;
+      margin: 0;
+      padding: 15px 0;
+    }
+    &__item {
+      flex-direction: column;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    &__btn {
+      justify-content: space-between;
+      width: 100%;
+      padding: 16px 24px;
+      font-size: 16px;
+      text-align: left;
+    }
+    .catbar__item.is-open .catbar__btn::after {
+      transform: rotate(180deg);
+    }
+  }
+  .mega {
+    position: static;
+    max-height: none;
+    padding: 5px 0 15px;
+    background-color: rgba(255, 255, 255, 0.05);
+    box-shadow: none;
+    .container {
+      width: 100%;
+      margin: 0;
+      padding-inline: 16px;
+    }
+    &__title {
+      display: none;
+    }
+    &__grid {
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+    &__item {
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
+      padding: 6px 8px;
+      border: none;
+      background-color: transparent;
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.08);
+        box-shadow: none;
+        transform: none;
+      }
+    }
+    &__img {
+      flex-shrink: 0;
+      width: 64px;
+      border-radius: 6px;
+    }
+    &__name {
+      flex: 1;
+      padding: 0;
+      color: #fff;
+    }
+    &__cta {
+      padding: 0;
+      color: #ff7477;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+  }
+  .catbar__item.is-open .mega {
+    display: block;
+  }
+}
