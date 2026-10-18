@@ -323,6 +323,17 @@ $bleuFonce: #144a85;
 
 // Ordinateur : "Catégories" s'ouvre au survol (ou au clic)
 @media (min-width: 993px) {
+  // "Faire un devis" n'apparaît qu'au survol du produit
+  .mega__cta {
+    opacity: 0;
+    transform: translateY(4px);
+    transition: 150ms ease-in-out;
+  }
+  .mega__item:hover .mega__cta,
+  .mega__item:focus-visible .mega__cta {
+    opacity: 1;
+    transform: none;
+  }
   .catbar__item--cats:hover .mega,
   .catbar__item--cats.is-open .mega {
     display: block;
