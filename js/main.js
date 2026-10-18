@@ -2,21 +2,22 @@
 // Construit à partir du catalogue (js/catalogue.js). "Catégories" s'ouvre au survol :
 // à gauche la liste des catégories, à droite les produits de la catégorie survolée.
 // Chaque produit mène directement à la page devis avec ce produit déjà sélectionné.
-const MENU_ORDRE = ["enseignes", "impression", "supports", "flocage", "design"];
-// Raccourcis affichés directement dans la barre (catégorie, produit)
+// L'ordre des catégories est celui du catalogue : Design, Impression, Supports, Enseignes, Flocage.
+// Raccourcis affichés directement dans la barre, dans le même ordre (catégorie, produit, texte affiché)
 const MENU_RACCOURCIS = [
+  ["design", "Logo / identité visuelle", "Logo"],
+  ["impression", "Cartes de visite"],
   ["enseignes", "Enseigne lumineuse"],
-  ["enseignes", "Néon / LED personnalisé"],
+  ["enseignes", "Néon / LED personnalisé", "Néon / LED"],
   ["enseignes", "Plaque en plexiglas"],
   ["flocage", "Flocage véhicule"],
-  ["impression", "Cartes de visite"],
 ];
 const navMenu = document.getElementById("nav-menu");
 const catbar = document.getElementById("catbar");
 
 if (navMenu && typeof DEVIS_CATALOGUE !== "undefined") {
   const lienDevis = (catId, nom) => `devis.html?cat=${catId}&item=${encodeURIComponent(nom)}`;
-  const categories = MENU_ORDRE.map((id) => DEVIS_CATALOGUE.find((cat) => cat.id === id));
+  const categories = DEVIS_CATALOGUE;
 
   const carteProduit = (cat, item) => `<a class="mega__item" href="${lienDevis(cat.id, item.name)}">
       ${
@@ -54,8 +55,8 @@ if (navMenu && typeof DEVIS_CATALOGUE !== "undefined") {
       </div>
     </li>` +
     MENU_RACCOURCIS.map(
-      ([catId, nom]) =>
-        `<li class="catbar__item catbar__item--raccourci"><a class="catbar__link" href="${lienDevis(catId, nom)}">${nom}</a></li>`
+      ([catId, nom, texte]) =>
+        `<li class="catbar__item catbar__item--raccourci"><a class="catbar__link" href="${lienDevis(catId, nom)}">${texte || nom}</a></li>`
     ).join("");
 
   const menuCats = navMenu.querySelector(".catbar__item--cats");
