@@ -596,7 +596,7 @@ if (devisForm) {
       ajouterBloc();
       showStatus("Merci ! Votre demande a bien été envoyée. Nous vous recontactons très vite avec votre devis.", "success");
     } catch (err) {
-      showStatus("L'envoi n'a pas fonctionné. Réessayez ou appelez-nous au 05 55 32 02 65.", "error");
+      showStatus("L'envoi n'a pas fonctionné. Réessayez ou appelez notre service commercial au 0777 50 68 62.", "error");
     } finally {
       submitBtn.disabled = false;
     }

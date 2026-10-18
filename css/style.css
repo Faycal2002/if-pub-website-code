@@ -2897,3 +2897,31 @@ a {
 .footer__map-link:hover {
   opacity: 0.8;
 }
+
+.footer__phones {
+  margin: 0 0 15px;
+  padding: 0;
+  list-style: none;
+}
+.footer__phones li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.footer__phones a {
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+}
+.footer__phones a:hover {
+  text-decoration: underline;
+}
+.footer__phones small {
+  color: rgba(255, 255, 255, 0.75);
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}

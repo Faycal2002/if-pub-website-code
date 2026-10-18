@@ -170,3 +170,32 @@
     opacity: 0.8;
   }
 }
+
+// Numéros de téléphone (cliquables sur mobile)
+.footer__phones {
+  margin: 0 0 15px;
+  padding: 0;
+  list-style: none;
+  li {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+  a {
+    color: #fff;
+    font-family: $Poppins;
+    font-size: 22px;
+    font-weight: 500;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  small {
+    color: rgba(#fff, 0.75);
+    font-family: $Roboto;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}
